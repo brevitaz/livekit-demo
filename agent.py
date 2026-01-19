@@ -1,7 +1,8 @@
 import logging
 
 from livekit.agents import JobContext, cli, Agent, AgentSession, function_tool, WorkerOptions
-from livekit.plugins import silero, azure, groq, openai
+from livekit.plugins import silero, azure, groq, openai, liveavatar
+
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 from config import Config
@@ -61,6 +62,12 @@ async def entrypoint(ctx: JobContext):
         user_away_timeout=float(Config.USER_AWAY_TIMEOUT),
         min_interruption_duration=1.0,
     )
+
+    # if you want to add liveavatar HeyGen plugin
+    # avatar = liveavatar.AvatarSession(
+    #     avatar_id=Config.LIVE_AVATAR_ID,  # ID of the LiveAvatar avatar to use
+    # )
+    # await avatar.start(session, room=ctx.room)
 
     await session.start(agent=ToolCallingAgent(), room=ctx.room)
     await ctx.connect()

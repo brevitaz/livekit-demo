@@ -36,11 +36,24 @@ This project implements a LiveKit voice agent using Azure for STT/TTS and OpenAI
 ## Running the Agent
 
 download necessary files and start the agent only once:
+
 ```bash
 python agent.py downlaod-files
 ```
 
 Start the agent:
+
 ```bash
 python agent.py start
 ```
+
+## FAQ
+
+### How to generate LiveKit Server URL and API Key?
+
+1.  Sign up for [LiveKit Cloud](https://cloud.livekit.io/).
+2.  Create a new project.
+3.  Navigate to **Settings** > **API Keys** > **Create Key**.
+4.  Add Key Description.
+5.  Copy the **WebSocket URL** (LiveKit URL), **API Key**, and **API Secret**.
+6.  Paste these values into your `.env` file.
