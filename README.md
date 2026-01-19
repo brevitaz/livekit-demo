@@ -57,3 +57,11 @@ python agent.py start
 4.  Add Key Description.
 5.  Copy the **WebSocket URL** (LiveKit URL), **API Key**, and **API Secret**.
 6.  Paste these values into your `.env` file.
+
+### How to communicate with the Agent?
+
+1.  Ensure your agent is running properly without errors.
+2.  Go to [https://agents-playground.livekit.io/](https://agents-playground.livekit.io/).
+3.  Select your Cloud project.
+4.  Grant the required permissions for Microphone and Video.
+5.  Click **Connect** in the top right corner.

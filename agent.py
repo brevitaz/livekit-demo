@@ -20,14 +20,6 @@ class ToolCallingAgent(Agent):
             instructions=get_prompt("system_prompt", "default tool calling agent system prompt"),
         )
 
-    @function_tool(
-        name="Add_two_numbers",
-        description="Use this tool to add two integers together and return the result.",
-    )
-    async def add(self, a: int, b: int) -> int:
-        logger.info(f"Adding two numbers using tool: {a} + {b}")
-        return a + b
-
 async def entrypoint(ctx: JobContext):
     ctx.log_context_fields = {"room": ctx.room.name}
     session = AgentSession(
@@ -42,15 +34,15 @@ async def entrypoint(ctx: JobContext):
             speech_region=Config.AZURE_SPEECH_REGION,
             voice=Config.AZURE_VOICE,
         ),
-        llm=openai.LLM(
-            model=Config.LLM_MODEL,
-            temperature=float(Config.LLM_TEMPERATURE),
-        ),
-        # if want to use groq
-        # llm=groq.LLM(
-        #     model=Config.GROQ_LLM_MODEL,
+        # llm=openai.LLM(
+        #     model=Config.LLM_MODEL,
         #     temperature=float(Config.LLM_TEMPERATURE),
         # ),
+        # if want to use groq
+        llm=groq.LLM(
+            model=Config.GROQ_LLM_MODEL,
+            temperature=float(Config.LLM_TEMPERATURE),
+        ),
         vad=silero.VAD.load(
             sample_rate=16000,
         ),
