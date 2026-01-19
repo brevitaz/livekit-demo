@@ -28,11 +28,6 @@ class ToolCallingAgent(Agent):
         logger.info(f"Adding two numbers using tool: {a} + {b}")
         return a + b
 
-    # override on_enter method from livekit
-    async def on_enter(self):
-        await self.session.generate_reply()
-
-
 async def entrypoint(ctx: JobContext):
     ctx.log_context_fields = {"room": ctx.room.name}
     session = AgentSession(
@@ -63,11 +58,10 @@ async def entrypoint(ctx: JobContext):
         min_interruption_duration=1.0,
     )
 
-    # if you want to add liveavatar HeyGen plugin
-    # avatar = liveavatar.AvatarSession(
-    #     avatar_id=Config.LIVE_AVATAR_ID,  # ID of the LiveAvatar avatar to use
-    # )
-    # await avatar.start(session, room=ctx.room)
+    avatar = liveavatar.AvatarSession(
+        avatar_id=Config.LIVE_AVATAR_ID,  # ID of the LiveAvatar avatar to use
+    )
+    await avatar.start(session, room=ctx.room)
 
     await session.start(agent=ToolCallingAgent(), room=ctx.room)
     await ctx.connect()
